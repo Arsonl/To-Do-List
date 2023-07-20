@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="{{ url_for('edit', location=location, index=index) }}" method="post">
+        <input type="text" name="todo" value ="{{ todo['task']}}">
+        {% if location in ['location1'] %}
+        <label for="deadline">Deadline:</label>
+        <input type="datetime-local" id="deadline" name="deadline" value="{{ todo.get('deadline')|default('', true) }}">
+        {% endif %}
+        {% if location in ['location2'] %}
+        <label for="deadline">Deadline:</label>
+        <input type="date" id="deadline" name="deadline" value="{{ todo['deadline']|default('') }}">
+        {% endif %}
+        <button type="submit">Save</button>
+
+    </form>
+
+</body>
+</html>

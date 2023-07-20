@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRITICAL</title>
+    <script>
+        function updateTimers() {
+            var timers = document.getElementsByClassName('timer');
+            for (var i = 0; i < timers.length; i++) {
+                var deadline = new Date(timers[i].dataset.deadline);
+                var now = new Date();
+                var diff = deadline - now;
+                if (diff > 0) {
+                    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    timers[i].textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+                } else {
+                    timers[i].textContent = "Expired";
+                }
+            }
+        }
+        setInterval(updateTimers, 1000); // Update every second
+    </script>
+</head>
+<body>
+    <h1>Critical tasks</h1>
+
+    <form action="{{ url_for('add') }}" method="post">
+        <input type="text" name="todo" placeholder="Enter task">
+        <label for="deadline">Deadline:</label>
+        <input type="datetime-local" name="deadline" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+                <span {%if todo['done'] %} style="text-decoration: line-through" {%endif%}>{{ todo['task'] }}</span>
+                <span>(Deadline: {{ todo['deadline'] }})</span>
+                <span class="timer" data-deadline="{{ todo['deadline'] }}"></span>
+                <a href="{{ url_for('edit', location='location1', index=loop.index0) }}">Edit</a>
+                <a href="{{ url_for('delete', index=loop.index0) }}">Delete</a>
+                <a href="{{ url_for('check', index=loop.index0) }}">Check</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form action="{{ url_for('index') }}">
+         <button type="submit">Go back to task categories</button>
+
+
+</body>
+</html>

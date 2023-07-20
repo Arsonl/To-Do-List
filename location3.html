@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Optionals</title>
+</head>
+<body>
+    <h1>Optionals</h1>
+
+    <form action="{{ url_for('add3') }}" method="post">
+        <input type="text" name="todo" placeholder="Enter task">
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+                <span {%if todo['done'] %} style="text-decoration: line-through" {%endif%}>{{ todo['task'] }}</span>
+                <a href="{{ url_for('edit', location='location3', index=loop.index0) }}">Edit</a>
+                <a href="{{ url_for('delete3', index=loop.index0) }}">Delete</a>
+                <a href="{{ url_for('check3', index=loop.index0) }}">Check</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form action="{{ url_for('index') }}">
+         <button type="submit">Go back to task categories</button>
+
+
+</body>
+</html>
