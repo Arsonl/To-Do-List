@@ -9,4 +9,4 @@ Application developed using Flask framework:
 
 -location 3 - Optionals - for tasks that can be done at any time: the user adds a task in the list.
 
--for all locations, the user can: edit the name and the deadline (where possible) of the task; delete a task from the list; check a task from the list
+-for every location, the user can: edit the name and the deadline (where possible) of the task; delete a task from the list; check a task from the list
